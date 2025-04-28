@@ -1,0 +1,51 @@
+# Projet DevOps - Déploiement d'infrastructure cloud avec Ansible
+
+## Description
+
+Ce projet a pour but de démontrer l'automatisation du déploiement d'une infrastructure cloud sur **AWS** avec **Ansible**.  
+L’objectif est de déployer des **conteneurs NGINX** sur plusieurs machines EC2, tout en automatisant les tâches avec des playbooks.
+
+---
+
+## Structure du projet
+
+Le projet se compose de plusieurs **playbooks Ansible** pour automatiser différentes étapes du déploiement :
+
+| **Playbook**              | **Fonction**                                        |
+|---------------------------|-----------------------------------------------------|
+| `0reset-machines.yml`      | Réinitialisation complète des machines              |
+| `1prepare-env.yml`         | Préparation des dépôts et de la clé Kubernetes (non utilisé) |
+| `2init-master.yml`         | Initialisation du master Kubernetes (non utilisé)   |
+| `3join-workers.yml`        | Ajout des workers au cluster Kubernetes (non utilisé) |
+| `4deploy-cluster.yml`      | Déploiement complet du cluster Kubernetes (non utilisé) |
+| `5deploy-containers.yml`   | Déploiement des conteneurs NGINX sur chaque machine |
+
+---
+
+## Prérequis
+
+Avant d'utiliser ce projet, assurez-vous de :
+- Avoir **Ansible** installé sur votre machine locale.
+- Disposer d'un compte **AWS** pour créer des instances EC2.
+- Générer une **clé SSH** (`key.pem`) pour l'accès aux machines EC2.
+
+---
+
+## Installation
+- Créez vos machines AWS :
+    Utilisez AWS pour créer vos instances EC2.
+    Une fois les instances créées, récupérez leurs IP publiques et ajoutez-les dans le fichier hosts sous la section appropriée.
+
+- éployer les conteneurs NGINX :
+    Il vous suffit ensuite de lancer le playbook 5deploy-containers.yml pour déployer un conteneur NGINX sur chaque machine.
+    Ce playbook va installer containerd sur les machines et lancer le conteneur NGINX.
+
+---
+
+## Exécution des playbooks
+
+Pour exécuter les playbooks, utilisez les commandes suivantes :
+
+1. **Réinitialiser les machines** :
+   ```bash
+   ansible-playbook 0reset-machines.yml -i hosts
